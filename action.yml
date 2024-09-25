@@ -20,7 +20,8 @@ runs:
   using: "composite"
   steps:
     - run: echo "Running the script..."
-    - run: ./main.sh
       shell: bash
+      run: ./main.sh
+     
 
 

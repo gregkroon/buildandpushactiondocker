@@ -1,5 +1,4 @@
-name: 'Docker Build and Push'
-description: 'Logs into Docker, builds an image, and pushes it to a Docker registry.'
+name: 'Docker Build and Push Action (Bash)'
 
 inputs:
   username:
@@ -12,19 +11,13 @@ inputs:
   image_name:
     description: 'The Docker image name to build and push'
     required: true
-  dockerfile:
-    description: 'Path to the Dockerfile'
-    required: false
-    default: './Dockerfile'
-  context:
-    description: 'Docker build context'
-    required: false
-    default: '.'
   tags:
-    description: 'Comma-separated list of tags for the Docker image'
+    description: 'Comma-separated tags for the Docker image'
     required: false
     default: 'latest'
 
 runs:
   using: 'node12'
-  main: 'index.js'
+  main: 'main.sh'
+
+

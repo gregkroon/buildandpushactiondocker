@@ -1,4 +1,6 @@
-name: 'Docker Build and Push Action (Bash)'
+name: 'Docker Build and Push Action (Docker)'
+
+description: 'A GitHub Action to build and push Docker images'
 
 inputs:
   username:
@@ -17,11 +19,14 @@ inputs:
     default: 'latest'
 
 runs:
-  using: "composite"
-  steps:
-    - name: Run Shell
-      shell: bash
-      run: main.sh
+  using: 'docker'
+  image: 'Dockerfile'  # The Dockerfile defined in this repository
+  args:
+    - ${{ inputs.username }}
+    - ${{ inputs.password }}
+    - ${{ inputs.image_name }}
+    - ${{ inputs.tags }}
+
      
 
 

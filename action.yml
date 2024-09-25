@@ -20,7 +20,7 @@ inputs:
 
 runs:
   using: 'docker'
-  image: 'Dockerfile'  # The Dockerfile defined in this repository
+  image: 'munkys123/buildandpushaction:latest'  # The Dockerfile defined in this repository
   args:
     - ${{ inputs.username }}
     - ${{ inputs.password }}

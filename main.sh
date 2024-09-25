@@ -1,28 +1,26 @@
 #!/bin/bash
+set -e  # Exit immediately if a command exits with a non-zero status.
 
-set -e  # Exit immediately if any command fails
+# Inputs (provided by the GitHub Action)
+USERNAME="$1"
+PASSWORD="$2"
+IMAGE_NAME="$3"
+TAGS="${4:-latest}"  # Default to "latest" tag if none provided
 
-# Get the inputs from the GitHub workflow
-USERNAME="${INPUT_USERNAME}"
-PASSWORD="${INPUT_PASSWORD}"
-IMAGE_NAME="${INPUT_IMAGE_NAME}"
-TAGS="${INPUT_TAGS:-latest}"  # Default tag is 'latest'
+# Log in to Docker Hub
+echo "$PASSWORD" | docker login -u "$USERNAME" --password-stdin
 
-# Docker login
-echo "${PASSWORD}" | docker login -u "${USERNAME}" --password-stdin
-
-# Build the Docker image for each tag
-for TAG in $(echo $TAGS | tr ',' '\n'); do
+# Build and tag the Docker image for each specified tag
+for TAG in $(echo "$TAGS" | tr ',' '\n'); do
   echo "Building Docker image ${IMAGE_NAME}:${TAG}"
   docker build -t "${IMAGE_NAME}:${TAG}" .
 done
 
 # Push the Docker image for each tag
-for TAG in $(echo $TAGS | tr ',' '\n'); do
+for TAG in $(echo "$TAGS" | tr ',' '\n'); do
   echo "Pushing Docker image ${IMAGE_NAME}:${TAG}"
   docker push "${IMAGE_NAME}:${TAG}"
 done
 
-# Docker logout
+# Log out from Docker Hub
 docker logout
-

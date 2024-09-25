@@ -21,7 +21,7 @@ runs:
   steps:
     - name: Run Shell
       shell: bash
-      run: ./main.sh
+      run: main.sh
      
 
 

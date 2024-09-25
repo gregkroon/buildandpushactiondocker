@@ -19,7 +19,7 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - run: echo "Running the script..."
+    - name: Run Shell
       shell: bash
       run: ./main.sh
      
